@@ -11,7 +11,7 @@ provider "google" {
   version = "3.5.0"
 
 
-  project     = "denis-mbaimpacta-turma04"
+  project     = "denis1-mbaimpacta-turma04"
   region  = "us-central1"
   zone    = "us-central1-c"
   }
