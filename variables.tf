@@ -23,3 +23,7 @@ variable "rg_location" {
   description = "Definindo a Região do Azure"
   default     = "East US"
 }
+variable "azurevm_admin_pass" {
+  type        = string
+  description = "Senha Usuario Admin do Linux"
+}
