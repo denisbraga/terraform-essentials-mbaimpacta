@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "myresourcegroup" {
-    name     = "LabMultiCloud"
+    name     = "LabMultiCloud2"
     location = var.rg_location
 
     tags = {
