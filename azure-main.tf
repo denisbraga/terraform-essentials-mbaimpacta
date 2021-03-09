@@ -1,9 +1,9 @@
 resource "azurerm_resource_group" "myresourcegroup" {
-    name     = "LabMultiCloud2"
+    name     = "LabMultiCloud"
     location = var.rg_location
 
     tags = {
-	environment = "Terraform Multi Cloud"
+        environment = "Terraform Multi Cloud"
     }
 }
 
@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "myresourcegroup" {
 resource "azurerm_virtual_network" "myterraformnetwork" {
     name                = "MultiCloudVnet"
     address_space       = ["10.0.0.0/16"]
-    location            = var.rg_location 
+    location            = var.rg_location
     resource_group_name = azurerm_resource_group.myresourcegroup.name
 
     tags = {
@@ -103,21 +103,17 @@ resource "azurerm_network_interface_security_group_association" "example" {
 
 ##### End Azure Network
 
-
 ##### Máquina Virtual Linux 
 resource "azurerm_linux_virtual_machine" "firstvm" {
-  name                = "Website"
-  location                  = var.rg_location
-  resource_group_name       = azurerm_resource_group.myresourcegroup.name
-  size                = "Standard_B1s"
-
-  disable_password_authentication = "false"
+  name                  = "Website"
+  location              = var.rg_location
+  resource_group_name   = azurerm_resource_group.myresourcegroup.name
+  size                    = "Standard_B1s"
   admin_username                  = "adminuser"
   admin_password                  = var.azurevm_admin_pass
-
-  network_interface_ids = [
-    azurerm_network_interface.myterraformnic.id,
-  ]
+  network_interface_ids = [azurerm_network_interface.myterraformnic.id]
+  disable_password_authentication = "false"
+  custom_data = filebase64("azure-user-data.sh")
 
   os_disk {
     caching              = "ReadWrite"
